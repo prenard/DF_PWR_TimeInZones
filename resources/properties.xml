@@ -1,0 +1,65 @@
+<resources>
+	<properties>
+    	<property id="DF_Title" type="string">PWR Time in Zones</property>
+	    <property id="Avg_Duration" type="number">3</property>
+	    <property id="Z1_H" type="number">159</property>
+	    <property id="Z2_H" type="number">216</property>
+	    <property id="Z3_H" type="number">250</property>
+	    <property id="Z4_H" type="number">270</property>
+	    <property id="Z5_H" type="number">299</property>
+		<property id="Z6_H" type="number">408</property>
+		<property id="Z7_H" type="number">544</property>
+		<property id="Z8_H" type="number">728</property>		
+		<property id="Display_Timer" type="number">2</property>
+	</properties>
+
+	<strings>
+    	<string id="DF_Title_Title">Data Field Title</string>
+	    <string id="Avg_Duration_Title">Avg Duration</string>
+	    <string id="Z1_H_Title">PWR Zone 1 - High</string>
+	    <string id="Z2_H_Title">PWR Zone 2 - High</string>
+		<string id="Z3_H_Title">PWR Zone 3 - High</string>
+	    <string id="Z4_H_Title">PWR Zone 4 - High</string>
+	    <string id="Z5_H_Title">PWR Zone 5 - High</string>
+	    <string id="Z6_H_Title">PWR Zone 6 - High</string>
+	    <string id="Z7_H_Title">PWR Zone 7 - High</string>
+	    <string id="Z8_H_Title">PWR Zone 8 - High</string>	    
+	    <string id="Display_Timer_Title">Display Timer</string>
+	</strings>
+	
+	<settings>
+	    <setting propertyKey="@Properties.DF_Title" title="@Strings.DF_Title_Title">
+	        <settingConfig type="alphaNumeric" readonly="true" />
+	    </setting>
+		<setting propertyKey="@Properties.Avg_Duration" title="@Strings.Avg_Duration_Title">
+	        <settingConfig type="numeric" min="1" max="3600" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z1_H" title="@Strings.Z1_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z2_H" title="@Strings.Z2_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z3_H" title="@Strings.Z3_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z4_H" title="@Strings.Z4_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z5_H" title="@Strings.Z5_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z6_H" title="@Strings.Z6_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z7_H" title="@Strings.Z7_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Z8_H" title="@Strings.Z8_H_Title">
+	        <settingConfig type="numeric" min="0" max="9999" />
+	    </setting>
+	    <setting propertyKey="@Properties.Display_Timer" title="@Strings.Display_Timer_Title">
+	        <settingConfig type="numeric" min="1" max="10" />
+	    </setting>
+	</settings>
+</resources>
