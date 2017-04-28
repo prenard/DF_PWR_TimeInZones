@@ -171,7 +171,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
     	Z_Range = View.findDrawableById("Z_Range");
      
 		//System.println(App_Title);
-   	    DF_Title.setText(App_Title);
+   	    DF_Title.setText("PWR Zones");
 
    	    var Label;
    	    Label = "- AVG " + Avg_Duration + "s";
