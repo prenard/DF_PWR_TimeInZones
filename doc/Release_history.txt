@@ -6,9 +6,11 @@ You can customize this Data Field to use specific hard coded Power Training Zone
 
 Release History:
 
-
+- V1.07 - 2018-01-19
+* Garmin IQ - SDK 2.4.2
+* Fix 1030 display
 - V1.06 - 2017-12-28
-* Garmin IQ - SDK 2.2.5
+* Garmin IQ - SDK 2.4.1
 * Edge 1030 support
 - V1.05 - 2017-04-28
 * Set title to "PWR Zones"
