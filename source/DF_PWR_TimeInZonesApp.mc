@@ -1,3 +1,7 @@
+// 
+// Prod id = C1EB2C642BF84C2BBF5677E59CF96002
+// Dev id  = 5efb299104b34d9ab800284c50ff6334
+//
 // History:
 //
 // 2018-02-10: Create Development Branch
@@ -40,23 +44,11 @@ class DF_PWR_TimeInZonesApp extends App.AppBase {
 		Args[3]  = readPropertyKeyInt("Z4_H",270);
 		Args[4]  = readPropertyKeyInt("Z5_H",300);
 		Args[5]  = readPropertyKeyInt("Z6_H",410);
-		Args[6]  = readPropertyKeyInt("Z7_H",550);
-		Args[7]  = readPropertyKeyInt("Z8_H",730);
-		Args[8]  = readPropertyKeyInt("Display_Timer",2);
-		Args[9]  = getProperty("DF_Title");
-		Args[10]  = readPropertyKeyInt("Avg_Duration",3);
-				
-//		Args[0]  = getProperty("Z1_H");
-//		Args[1]  = getProperty("Z2_H");
-//		Args[2]  = getProperty("Z3_H");
-//		Args[3]  = getProperty("Z4_H");
-//		Args[4]  = getProperty("Z5_H");
-//		Args[5]  = getProperty("Z6_H");
-//		Args[6]  = getProperty("Z7_H");
-//		Args[7]  = getProperty("Z8_H");
-//		Args[8]  = getProperty("Display_Timer");
-//		Args[9]  = getProperty("DF_Title");
-//		Args[10] = getProperty("Avg_Duration");		
+		Args[6]  = readPropertyKeyInt("Display_Timer",2);
+		Args[7]  = getProperty("DF_Title");
+		Args[8]  = readPropertyKeyInt("Avg_Duration",3);
+		Args[9]  = readPropertyKeyInt("Graph_Timer",4);
+		Args[10] = getProperty("Display_Graph");
 
         return [ new DF_PWR_TimeInZonesView(Args) ];
     }

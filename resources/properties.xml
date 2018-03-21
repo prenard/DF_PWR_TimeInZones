@@ -2,15 +2,15 @@
 	<properties>
     	<property id="DF_Title" type="string">PWR Time in Zones</property>
 	    <property id="Avg_Duration" type="number">3</property>
-	    <property id="Z1_H" type="number">159</property>
-	    <property id="Z2_H" type="number">216</property>
-	    <property id="Z3_H" type="number">250</property>
-	    <property id="Z4_H" type="number">270</property>
-	    <property id="Z5_H" type="number">299</property>
-		<property id="Z6_H" type="number">408</property>
-		<property id="Z7_H" type="number">544</property>
-		<property id="Z8_H" type="number">728</property>		
+	    <property id="Z1_H" type="number">157</property>
+	    <property id="Z2_H" type="number">213</property>
+	    <property id="Z3_H" type="number">266</property>
+	    <property id="Z4_H" type="number">294</property>
+	    <property id="Z5_H" type="number">408</property>
+		<property id="Z6_H" type="number">550</property>
 		<property id="Display_Timer" type="number">2</property>
+		<property id="Graph_Timer" type="number">4</property>
+	    <property id="Display_Graph" type="boolean">false</property>
 	</properties>
 
 	<strings>
@@ -22,9 +22,9 @@
 	    <string id="Z4_H_Title">PWR Zone 4 - High</string>
 	    <string id="Z5_H_Title">PWR Zone 5 - High</string>
 	    <string id="Z6_H_Title">PWR Zone 6 - High</string>
-	    <string id="Z7_H_Title">PWR Zone 7 - High</string>
-	    <string id="Z8_H_Title">PWR Zone 8 - High</string>	    
 	    <string id="Display_Timer_Title">Display Timer</string>
+	    <string id="Graph_Timer_Title">Graph Timer</string>
+	    <string id="Display_Graph_Title">Display Graph</string>
 	</strings>
 	
 	<settings>
@@ -52,14 +52,14 @@
 	    <setting propertyKey="@Properties.Z6_H" title="@Strings.Z6_H_Title">
 	        <settingConfig type="numeric" min="0" max="9999" />
 	    </setting>
-	    <setting propertyKey="@Properties.Z7_H" title="@Strings.Z7_H_Title">
-	        <settingConfig type="numeric" min="0" max="9999" />
-	    </setting>
-	    <setting propertyKey="@Properties.Z8_H" title="@Strings.Z8_H_Title">
-	        <settingConfig type="numeric" min="0" max="9999" />
-	    </setting>
 	    <setting propertyKey="@Properties.Display_Timer" title="@Strings.Display_Timer_Title">
 	        <settingConfig type="numeric" min="1" max="10" />
+	    </setting>
+	    <setting propertyKey="@Properties.Graph_Timer" title="@Strings.Graph_Timer_Title">
+	        <settingConfig type="numeric" min="1" max="60" />
+	    </setting>
+	    <setting propertyKey="@Properties.Display_Graph" title="@Strings.Display_Graph_Title">
+	        <settingConfig type="boolean"/>
 	    </setting>
 	</settings>
 </resources>

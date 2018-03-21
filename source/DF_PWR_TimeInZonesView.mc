@@ -7,7 +7,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 	
 	var App_Title;
 	
-	var Max_Zones_Number = 9;
+	var Max_Zones_Number = 7;
 	var Max_Power = 1999;
 	
 	var Zones_Number = 0;
@@ -21,6 +21,9 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
     var Loop_Index;
     var Loop_Size;
 	var Loop_Value = new [Max_Display_Timer*Max_Zones_Number];
+
+	var Power_Current = 0;
+	var Power_Current_Zone = 0;
 
 	var Avg_Power = 0;
 	var Avg_Power_Zone = 0;
@@ -46,86 +49,111 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
     var Z_Value;
     var Z_Range;
 
+	// Graph Management
+
+	var Display_Graph = false;
+
+	var Graph_Timer = 0;
+    var arrayColours = [Gfx.COLOR_LT_GRAY, Gfx.COLOR_BLUE, Gfx.COLOR_GREEN, Gfx.COLOR_YELLOW, Gfx.COLOR_ORANGE, Gfx.COLOR_RED, Gfx.COLOR_DK_RED];
+
+
+	var arrayPowerSize = 0;
+    var arrayPowerValue = new [0];
+    var arrayPowerZone = new [0];
+    var curPos;
+	var avePowerValue = 0;
+	var avePowerCount = 0;
+
+	var Powermin = 0;
+	var Powermax = 0;
+
+	var DF_Title_x = 0;
+	var DF_Title_y = 0;
+	var DF_Title_font = Gfx.FONT_XTINY;
+
+	var Power_Value_x = 0;
+	var Power_Value_y = 0;
+	var Power_Value_font = Gfx.FONT_XTINY;
+
+	var Power_Zone_x = 0;
+	var Power_Zone_y = 0;
+	var Power_Zone_font = Gfx.FONT_XTINY;
+
+	var Power_Unit_x = 0;
+	var Power_Unit_y = 0;
+	var Power_Unit_font = Gfx.FONT_XTINY;
+
+	var Z_Label_x = 0;
+	var Z_Label_y = 0;
+	var Z_Label_font = Gfx.FONT_XTINY;
+
+	var Z_Value_x = 0;
+	var Z_Value_y = 0;
+	var Z_Value_font = Gfx.FONT_XTINY;
+
+	var Z_Range_x = 0;
+	var Z_Range_y = 0;
+	var Z_Range_font = Gfx.FONT_XTINY;
+
+	var Graph_Right_x = 0;
+	var Graph_Bottom_y = 0;
+
 	
     function initialize(Args)
     {
         DataField.initialize();
 
 	    Device_Type = Ui.loadResource(Rez.Strings.Device);
-
-		var Z_H = new [Max_Zones_Number+1];
-
-		Z_H[1] 			= Args[0];
-		Z_H[2] 			= Args[1];
-		Z_H[3] 			= Args[2];
-		Z_H[4] 			= Args[3];
-		Z_H[5] 			= Args[4];
-		Z_H[6] 			= Args[5];
-		Z_H[7] 			= Args[6];
-		Z_H[8]			= Args[7];
-		Display_Timer	= Args[8];
-        App_Title		= Args[9];
-		Avg_Duration	= Args[10];
-
-        //App_Title = "PWR Zones";
-		//App_Version ="1.00";
-
-		//Display_Timer = D_T;
-
-	
-		//Z_H[1] = Z1_H;
-		//Z_H[2] = Z2_H;
-		//Z_H[3] = Z3_H;
-		//Z_H[4] = Z4_H;
-		//Z_H[5] = Z5_H;
-		//Z_H[6] = Z6_H;
-		//Z_H[7] = Z7_H;
-		//Z_H[8] = Z8_H;
-						
-		var Last_Zone = false;
+		System.println("Device_Type = " + Device_Type);
 		
-		for (var i = 1; i < Max_Zones_Number ; ++i)
-       	{
-			//System.println("Looking for Zone " + i + " Zones_Number = " + Zones_Number);
+		var Z_H = new [Max_Zones_Number - 1];
 
-			if (i == 1)
+		Z_H[0] 			= Args[0];
+		Z_H[1] 			= Args[1];
+		Z_H[2] 			= Args[2];
+		Z_H[3] 			= Args[3];
+		Z_H[4] 			= Args[4];
+		Z_H[5] 			= Args[5];
+		Display_Timer	= Args[6];
+        App_Title		= Args[7];
+		Avg_Duration	= Args[8];
+		Graph_Timer 	= Args[9];
+		Display_Graph	= Args[10];
+
+		System.println("Display_Graph = " + Display_Graph);
+		
+		Zone_L[0] = 0;
+		for (var i = 0; i < Z_H.size() ; ++i)
+   	   	{
+			for (var j = 0; j < Zones_Number ; ++j)
+   			{
+				System.println("Zone " + j + " : " + Zone_L[j] + " - " + Zone_H[j]);
+			}
+
+			if ((Z_H[i] == 0) and (!Last_Zone))
 			{
-				Zone_L[Zones_Number] = 0;
+				Zone_H[Zones_Number] = Max_HR;
 			}
 			else
 			{
-				Zone_L[Zones_Number] = Zone_H[Zones_Number-1] + 1;
-			}
-
-
-			if ((Z_H[i] == 0) and !(Last_Zone))
-			{
-				Zone_H[Zones_Number] = Max_Power;
-				Last_Zone = true;
+				Zone_H[Zones_Number] = Z_H[i];
 				Zones_Number++;
-			}
-
-			if (Z_H[i] > 0)
-			{
-				Zone_H[Zones_Number] = Z_H[i]; 
-				Zones_Number++;
-			}
-
-			if ((i == (Max_Zones_Number - 1)) and (Z_H[i] > 0))
-			{
 				Zone_L[Zones_Number] = Zone_H[Zones_Number-1] + 1;
-				Zone_H[Zones_Number] = Max_Power;
-				Last_Zone = true;
-       		}
+				if (i == (Z_H.size() - 1))
+				{
+					Zone_H[Zones_Number] = Max_Power;
+				}
+			}
 		}
 		
+		System.println("Zones_Number = " + Zones_Number);
 
 		Loop_Index = 0;
 		for (var i = 0; i <= Zones_Number ; ++i)
        	{
 			Zone_Time[i] = 0;
-			var j = i+1;
-			//System.println("Zone " + j + " : " + Zone_L[i] + " - " + Zone_H[i]);
+			var j = i + 1;
+			System.println("Zone " + j + " : " + Zone_L[i] + " - " + Zone_H[i]);
 			for (var k = 0; k < Display_Timer; ++k)
     	   	{
     	   		Loop_Value[Loop_Index] = i;
@@ -139,6 +167,110 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
        	//{
 		//	System.println("Display " + i + " - Zone " + Loop_Value[i]);
 		//}
+
+		// Device Management
+
+		switch (Device_Type)
+		{
+			case "edge_820":
+
+				Graph_Right_x = 195;
+				Graph_Bottom_y = 49;
+
+				DF_Title_x = 1;
+				DF_Title_y = 6;
+				DF_Title_font = Gfx.FONT_XTINY;
+
+				Power_Value_x = 80;
+				Power_Value_y = 35;
+				Power_Value_font = Gfx.FONT_NUMBER_HOT;
+
+				Power_Zone_x = 85;
+				Power_Zone_y = 30;
+				Power_Zone_font = Gfx.FONT_SMALL;
+
+				Power_Unit_x = 85;
+				Power_Unit_y = 44;
+				Power_Unit_font = Gfx.FONT_XTINY;
+
+				Z_Label_x = 85;
+				Z_Label_y = 10;
+				Z_Label_font = Gfx.FONT_MEDIUM;
+
+				Z_Value_x = 197;
+				Z_Value_y = 18;
+				Z_Value_font = Gfx.FONT_NUMBER_MILD;
+
+				Z_Range_x = 197;
+				Z_Range_y = 42;
+				Z_Range_font = Gfx.FONT_MEDIUM;
+
+				break;
+
+			case "edge_1030":
+
+				Graph_Right_x = 270;
+				Graph_Bottom_y = 90;
+
+				DF_Title_x = 1;
+				DF_Title_y = 6;
+				DF_Title_font = Gfx.FONT_XTINY;
+
+				Power_Value_x = 125;
+				Power_Value_y = 55;
+				Power_Value_font = Gfx.FONT_NUMBER_THAI_HOT;
+
+				Power_Zone_x = 130;
+				Power_Zone_y = 50;
+				Power_Zone_font = Gfx.FONT_SMALL;
+
+				Power_Unit_x = 130;
+				Power_Unit_y = 68;
+				Power_Unit_font = Gfx.FONT_XTINY;
+
+				Z_Label_x = 160;
+				Z_Label_y = 55;
+				Z_Label_font = Gfx.FONT_MEDIUM;
+
+				Z_Value_x = 280;
+				Z_Value_y = 20;
+				Z_Value_font = Gfx.FONT_NUMBER_MEDIUM;
+
+				Z_Range_x = 280;
+				Z_Range_y = 55;
+				Z_Range_font = Gfx.FONT_MEDIUM;
+
+				break;
+
+			default:
+				break;
+		}
+
+		arrayPowerSize = Graph_Right_x - 5;
+
+
+		System.println("Before Array Allocation - Total Memory = " + System.getSystemStats().totalMemory + " / Used Memory = " + System.getSystemStats().usedMemory);
+
+		for (var i = 0; i < arrayPowerSize; ++i)
+		{
+			arrayPowerValue.add(["0"]);
+			arrayPowerZone.add(["0"]);
+			//System.println("During Array Allocation - Total Memory = " + System.getSystemStats().totalMemory + " / Used Memory = " + System.getSystemStats().usedMemory);
+		}
+
+
+		System.println("arrayPowerValue.size()  = " + arrayPowerValue.size());
+		System.println("arrayPowerZone.size()  = " + arrayPowerZone.size());
+		System.println("Graph Period = " + (arrayPowerSize * Graph_Timer / 60) + " Min");
+		
+		
+        curPos = 0;
+        for (var i = 0; i < arrayPowerValue.size(); ++i)
+        {
+            arrayPowerValue[i] = 0;
+            arrayPowerZone[i] = -1;
+        }
+
 
         History_Power = new[Avg_Duration];
 		
@@ -163,25 +295,6 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 
     	View.setLayout(Rez.Layouts.MainLayout(dc));
 
-    	DF_Title = View.findDrawableById("DF_Title");
-    	Power_Label = View.findDrawableById("Power_Label");
-    	Power_Value = View.findDrawableById("Power_Value");
-    	Power_Unit = View.findDrawableById("Power_Unit");
-    	Power_Zone = View.findDrawableById("Power_Zone");
-    	Z_Label = View.findDrawableById("Z_Label");
-    	Z_Value = View.findDrawableById("Z_Value");
-    	Z_Range = View.findDrawableById("Z_Range");
-     
-		//System.println(App_Title);
-   	    DF_Title.setText("PWR Zones");
-
-   	    var Label;
-   	    Label = "- AVG " + Avg_Duration + "s";
-   	    Power_Label.setText(Label);
-   	    
-   	    Power_Unit.setText("W");
-
-		// Set fields FONTs
 
        //if (Device_Type.equals("edge_520") or Device_Type.equals("edge_1000"))
        if (Device_Type.equals("edge_520") or Device_Type.equals("edge_820"))
@@ -189,12 +302,6 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 			CustomFont_Value_Medium_1 = Ui.loadResource(Rez.Fonts.Font_Value_Medium_1);
 			CustomFont_Value_Medium_2 = Ui.loadResource(Rez.Fonts.Font_Value_Medium_2);
 			CustomFont_Value_Large_1 = Ui.loadResource(Rez.Fonts.Font_Value_Large_1);
-
-			Power_Value.setFont(CustomFont_Value_Large_1);
-			Power_Zone.setFont(CustomFont_Value_Medium_1);
-			Z_Value.setFont(CustomFont_Value_Medium_2);
-			Z_Range.setFont(CustomFont_Value_Medium_1);
-			Z_Label.setFont(CustomFont_Value_Medium_1);
        }
 
         return true;
@@ -204,19 +311,69 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
     //! information. Calculate a value and save it locally in this method.
     function compute(info)
     {
-        //System.println("Power = " + info.currentPower);
-        if( (info.currentPower != null))
-        {
-			for (var i = 0; i < Zones_Number ; ++i)
-    	   	{
-    	   		if ((Zone_L[i] <= info.currentPower) and (info.currentPower <= Zone_H[i]))
-    	   		{
-    	   			Zone_Time[i]++;
-    	   			//System.println("Zone " + i + " = " + Zone_Time[i]);
-    	   		}
-        	}
+		var Power_Zone = 0;
+
+		if (info.currentPower != null)
+		{
+			Power_Current = info.currentPower;
+			Power_Zone = GetPowerZone(Power_Current);
+			Power_Current_Zone = Power_Zone + 1;
+		}
+
+		if (info.currentPower != null && info.elapsedTime != null && info.elapsedTime > 0)
+		{
+
+			// Compute time in Zones
+			System.println("Power_Zone = " + Power_Zone);
+			Zone_Time[Power_Zone]++;
+
+			avePowerValue = avePowerValue + info.currentPower;
+			avePowerCount = avePowerCount + 1;
+			
+			if(avePowerCount > Graph_Timer)
+			{
+				arrayPowerValue[curPos] = (avePowerValue / avePowerCount).toNumber();
+				arrayPowerZone[curPos] = GetPowerZone(arrayPowerValue[curPos]);
+
+				System.println("arrayPowerValue[" + curPos + "]: " + arrayPowerValue[curPos]);
+				System.println("arrayPowerZone[" + curPos + "]: " + arrayPowerZone[curPos]);
+
+
+				curPos = curPos + 1;
+				if(curPos > arrayPowerValue.size()-1)
+				{
+					curPos = 0;
+				}
+				avePowerCount = 0;
+				avePowerValue = 0;
+			}
+
+			Powermin = Zone_L[0];
+			Powermax = Zone_H[Zones_Number - 2];
+
+        	for (var i = 0; i < arrayPowerValue.size(); ++i)
+        	{
+        		if(arrayPowerZone[i] >=0)
+        		{
+       				if(arrayPowerValue[i] > Powermax)
+       				{
+        				Powermax = arrayPowerValue[i];
+        			}
+        			else
+        			if(arrayPowerValue[i] < Powermin)
+        			{
+        				Powermin = arrayPowerValue[i];
+        			}
+        		}
+        	}        		
+
+			Powermin = Powermin - 0;
+			//if(HRmin < Zone_L[1] + 10) { HRmin = Zone_L[1] + 10; }  // set floor just above min HR
+			Powermax = Powermax + 5;
+			//if(HRmax > Zone_H[4] + 5) { HRmax = Zone_H[4] + 5; }  // clip spikes just above max HR
+		
         }
-        
+
         var power;
         
         if( (info.currentPower != null))
@@ -266,55 +423,62 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
         // Set the background color
         View.findDrawableById("Background").setColor(getBackgroundColor());
 
+		var FontDisplayColor = Gfx.COLOR_BLACK;
         
         if (getBackgroundColor() == Gfx.COLOR_BLACK)
         {
-            DF_Title.setColor(Gfx.COLOR_WHITE);
-            Power_Label.setColor(Gfx.COLOR_WHITE);
-            Power_Value.setColor(Gfx.COLOR_WHITE);
-            Power_Unit.setColor(Gfx.COLOR_WHITE);
-            Power_Zone.setColor(Gfx.COLOR_WHITE);
-            Z_Label.setColor(Gfx.COLOR_WHITE);
-            Z_Value.setColor(Gfx.COLOR_WHITE);
-            Z_Range.setColor(Gfx.COLOR_WHITE);
+            FontDisplayColor = Gfx.COLOR_WHITE;
         }
         else
         {
-            DF_Title.setColor(Gfx.COLOR_BLACK);
-            Power_Label.setColor(Gfx.COLOR_BLACK);
-            Power_Value.setColor(Gfx.COLOR_BLACK);
-            Power_Unit.setColor(Gfx.COLOR_BLACK);
-            Power_Zone.setColor(Gfx.COLOR_BLACK);
-            Z_Label.setColor(Gfx.COLOR_BLACK);
-            Z_Value.setColor(Gfx.COLOR_BLACK);
-            Z_Range.setColor(Gfx.COLOR_BLACK);
+            FontDisplayColor = Gfx.COLOR_BLACK;
         }
 
 		//Avg_Power = 1888;
 		//Avg_Power_Zone = 2;
 		
-		Power_Value.setText(Avg_Power.toString());
-		Power_Zone.setText(Avg_Power_Zone.toString());
-		
-
 		Loop_Index = (Loop_Index + 1) % Loop_Size;
 		var Zone_to_Display = Loop_Value[Loop_Index];
 		var Zone_to_Display_Plus_One = Zone_to_Display + 1;
-
-		//System.println("Zone to Display : " + Zone_to_Display);
-		
-		Z_Label.setText(Zone_to_Display_Plus_One.toString());
-
 		var Value_to_Display = TimeFormat(Zone_Time[Zone_to_Display]);
-        //System.println(Value_to_Display);
-        
-		Z_Value.setText(Value_to_Display);
-
-		var Range_to_Display = Zone_L[Zone_to_Display].toString() + " - " + Zone_H[Zone_to_Display].toString();
-		Z_Range.setText(Range_to_Display);
+		var Range_to_Display = Zone_L[Zone_to_Display].toString() + ":" + Zone_H[Zone_to_Display].toString();
 		
         // Call parent's onUpdate(dc) to redraw the layout
         View.onUpdate(dc);
+
+		if (Display_Graph)
+		{
+	        for (var i = 0; i < arrayPowerValue.size(); ++i)
+    	    {
+				//System.println("Graph: " + i);
+				var ii;
+				var scaling;
+    	    	ii = curPos-1-i;
+	        	if(ii < 0)
+    	    	{
+        			ii = ii + arrayPowerValue.size();
+	        	}
+	        	if(arrayPowerZone[ii] >=0)
+    	    	{
+					scaling = (arrayPowerValue[ii] - Powermin).toFloat() / (Powermax - Powermin).toFloat();
+					dc.setColor(arrayColours[arrayPowerZone[ii]], Gfx.COLOR_TRANSPARENT);
+        			dc.drawLine(Graph_Right_x - i, Graph_Bottom_y, Graph_Right_x - i, (Graph_Bottom_y - Graph_Bottom_y * scaling).toNumber());
+	        	}
+    	    }
+		}
+
+   	    var DF_Title_Text;
+   	    DF_Title_Text = "PWR Zones - " + Avg_Duration + "s";
+
+		textL(dc, DF_Title_x, DF_Title_y, DF_Title_font, FontDisplayColor, DF_Title_Text);
+		textR(dc, Power_Value_x, Power_Value_y, Power_Value_font, FontDisplayColor, Avg_Power.toString());
+		textL(dc, Power_Zone_x, Power_Zone_y, Power_Zone_font, FontDisplayColor, Avg_Power_Zone.toString());
+		textL(dc, Power_Unit_x, Power_Unit_y, Power_Unit_font, FontDisplayColor, "W");
+		textL(dc, Z_Label_x, Z_Label_y, Z_Label_font, FontDisplayColor, Zone_to_Display_Plus_One.toString());
+		textR(dc, Z_Value_x, Z_Value_y, Z_Value_font, FontDisplayColor, Value_to_Display.toString());
+		textR(dc, Z_Range_x, Z_Range_y, Z_Range_font, FontDisplayColor, Range_to_Display.toString());
+
+
     }
 
     function TimeFormat(Seconds)
@@ -329,5 +493,39 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
       var Return_Value = Hour.format("%d") + ":" + Minute.format("%02d") + ":" + Second.format("%02d");
       return Return_Value;
     }
+
+	function textR(dc, x, y, font, color, s)
+	{
+		if (s != null)
+		{
+			dc.setColor(color, Gfx.COLOR_TRANSPARENT);
+			dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER);
+		}
+	}
+
+	function textL(dc, x, y, font, color, s)
+	{
+		if (s != null)
+		{
+			dc.setColor(color, Gfx.COLOR_TRANSPARENT);
+			dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+		}
+	}
+
+
+    function GetPowerZone(pwr)
+    {
+		var Power_Zone = 0;
+		for (var i = 0; i < Zones_Number ; ++i)
+    	{
+    		if ((Zone_L[i] <= pwr) and (pwr <= Zone_H[i]))
+    	   	{
+    	   		Power_Zone = i;
+    	   		return Power_Zone;
+    	   	}
+        }
+    	return Power_Zone;
+	}
+
 
 }
