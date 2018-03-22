@@ -5,7 +5,9 @@ With this Complex Data Field, you can check how much time you have spent in each
 You can customize this Data Field to use specific hard coded Power Training Zones.
 
 Release History:
-
+- V1.10 - 2018-03-22
+* Garmin IQ - SDK 2.4.4
+* Add option to display Graph
 - V1.07 - 2018-01-19
 * Garmin IQ - SDK 2.4.2
 * Fix 1030 display
