@@ -104,7 +104,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
         DataField.initialize();
 
 	    Device_Type = Ui.loadResource(Rez.Strings.Device);
-		System.println("Device_Type = " + Device_Type);
+		//System.println("Device_Type = " + Device_Type);
 		
 		var Z_H = new [Max_Zones_Number - 1];
 
@@ -119,6 +119,12 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 		Avg_Duration	= Args[8];
 		Graph_Timer 	= Args[9];
 		Display_Graph	= Args[10];
+
+		// Memory limitation on Edge 520 = no graph support
+		if (Device_Type.equals("edge_520"))
+		{
+			Display_Graph = false;
+		}
 
 		System.println("Display_Graph = " + Display_Graph);
 		
@@ -172,38 +178,144 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 
 		switch (Device_Type)
 		{
+			case "edge_520":
+
+				Graph_Right_x = 195;
+				Graph_Bottom_y = 49;
+
+				DF_Title_x = 1;
+				DF_Title_y = 0;
+				DF_Title_font = Gfx.FONT_XTINY;
+
+				Power_Value_x = 80;
+				Power_Value_y = 10;
+				Power_Value_font = Gfx.FONT_NUMBER_HOT;
+
+				Power_Zone_x = 85;
+				Power_Zone_y = 0;
+				Power_Zone_font = Gfx.FONT_SMALL;
+
+				Power_Unit_x = 85;
+				Power_Unit_y = 38;
+				Power_Unit_font = Gfx.FONT_XTINY;
+
+				Z_Label_x = 95;
+				Z_Label_y = 25;
+				Z_Label_font = Gfx.FONT_NUMBER_MILD;
+				
+				Z_Value_x = 197;
+				Z_Value_y = 0;
+				Z_Value_font = Gfx.FONT_NUMBER_MILD;
+
+				Z_Range_x = 197;
+				Z_Range_y = 30;
+				Z_Range_font = Gfx.FONT_MEDIUM;
+
+				break;
+
+			case "edge_520_plus":
+
+				Graph_Right_x = 195;
+				Graph_Bottom_y = 49;
+
+				DF_Title_x = 1;
+				DF_Title_y = 0;
+				DF_Title_font = Gfx.FONT_XTINY;
+
+				Power_Value_x = 80;
+				Power_Value_y = 10;
+				Power_Value_font = Gfx.FONT_NUMBER_HOT;
+
+				Power_Zone_x = 85;
+				Power_Zone_y = 0;
+				Power_Zone_font = Gfx.FONT_SMALL;
+
+				Power_Unit_x = 85;
+				Power_Unit_y = 38;
+				Power_Unit_font = Gfx.FONT_XTINY;
+
+				Z_Label_x = 95;
+				Z_Label_y = 25;
+				Z_Label_font = Gfx.FONT_NUMBER_MILD;
+				
+				Z_Value_x = 197;
+				Z_Value_y = 0;
+				Z_Value_font = Gfx.FONT_NUMBER_MILD;
+
+				Z_Range_x = 197;
+				Z_Range_y = 30;
+				Z_Range_font = Gfx.FONT_MEDIUM;
+
+				break;
+
 			case "edge_820":
 
 				Graph_Right_x = 195;
 				Graph_Bottom_y = 49;
 
 				DF_Title_x = 1;
-				DF_Title_y = 6;
+				DF_Title_y = 0;
 				DF_Title_font = Gfx.FONT_XTINY;
 
 				Power_Value_x = 80;
-				Power_Value_y = 35;
+				Power_Value_y = 10;
 				Power_Value_font = Gfx.FONT_NUMBER_HOT;
 
 				Power_Zone_x = 85;
-				Power_Zone_y = 30;
+				Power_Zone_y = 0;
 				Power_Zone_font = Gfx.FONT_SMALL;
 
 				Power_Unit_x = 85;
-				Power_Unit_y = 44;
+				Power_Unit_y = 38;
 				Power_Unit_font = Gfx.FONT_XTINY;
 
-				Z_Label_x = 85;
-				Z_Label_y = 10;
-				Z_Label_font = Gfx.FONT_MEDIUM;
-
+				Z_Label_x = 95;
+				Z_Label_y = 25;
+				//Z_Label_font = Gfx.FONT_MEDIUM;
+				Z_Label_font = Gfx.FONT_NUMBER_MILD;
+				
 				Z_Value_x = 197;
-				Z_Value_y = 18;
+				Z_Value_y = 0;
 				Z_Value_font = Gfx.FONT_NUMBER_MILD;
 
 				Z_Range_x = 197;
-				Z_Range_y = 42;
+				Z_Range_y = 30;
 				Z_Range_font = Gfx.FONT_MEDIUM;
+
+				break;
+
+			case "edge_1000":
+
+				Graph_Right_x = 230;
+				Graph_Bottom_y = 75;
+
+				DF_Title_x = 1;
+				DF_Title_y = 1;
+				DF_Title_font = Gfx.FONT_XTINY;
+
+				Power_Value_x = 115;
+				Power_Value_y = 20;
+				Power_Value_font = Gfx.FONT_NUMBER_THAI_HOT;
+
+				Power_Zone_x = 118;
+				Power_Zone_y = 1;
+				Power_Zone_font = Gfx.FONT_SMALL;
+
+				Power_Unit_x = 118;
+				Power_Unit_y = 62;
+				Power_Unit_font = Gfx.FONT_XTINY;
+
+				Z_Label_x = 118;
+				Z_Label_y = 20;
+				Z_Label_font = Gfx.FONT_NUMBER_MILD;
+
+				Z_Value_x = 238;
+				Z_Value_y = 1;
+				Z_Value_font = Gfx.FONT_LARGE;
+
+				Z_Range_x = 238;
+				Z_Range_y = 45;
+				Z_Range_font = Gfx.FONT_LARGE;
 
 				break;
 
@@ -213,32 +325,32 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Graph_Bottom_y = 90;
 
 				DF_Title_x = 1;
-				DF_Title_y = 6;
+				DF_Title_y = 1;
 				DF_Title_font = Gfx.FONT_XTINY;
 
 				Power_Value_x = 125;
-				Power_Value_y = 55;
+				Power_Value_y = 20;
 				Power_Value_font = Gfx.FONT_NUMBER_THAI_HOT;
 
 				Power_Zone_x = 130;
-				Power_Zone_y = 50;
-				Power_Zone_font = Gfx.FONT_SMALL;
+				Power_Zone_y = 1;
+				Power_Zone_font = Gfx.FONT_MEDIUM;
 
 				Power_Unit_x = 130;
-				Power_Unit_y = 68;
+				Power_Unit_y = 75;
 				Power_Unit_font = Gfx.FONT_XTINY;
 
-				Z_Label_x = 160;
-				Z_Label_y = 55;
-				Z_Label_font = Gfx.FONT_MEDIUM;
+				Z_Label_x = 130;
+				Z_Label_y = 40;
+				Z_Label_font = Gfx.FONT_NUMBER_MEDIUM;
 
 				Z_Value_x = 280;
-				Z_Value_y = 20;
+				Z_Value_y = 1;
 				Z_Value_font = Gfx.FONT_NUMBER_MEDIUM;
 
 				Z_Range_x = 280;
 				Z_Range_y = 55;
-				Z_Range_font = Gfx.FONT_MEDIUM;
+				Z_Range_font = Gfx.FONT_LARGE;
 
 				break;
 
@@ -251,11 +363,15 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 
 		System.println("Before Array Allocation - Total Memory = " + System.getSystemStats().totalMemory + " / Used Memory = " + System.getSystemStats().usedMemory);
 
-		for (var i = 0; i < arrayPowerSize; ++i)
+		// Test to manage Edge 520 memory limitation
+		if (Display_Graph)
 		{
-			arrayPowerValue.add(["0"]);
-			arrayPowerZone.add(["0"]);
-			//System.println("During Array Allocation - Total Memory = " + System.getSystemStats().totalMemory + " / Used Memory = " + System.getSystemStats().usedMemory);
+			for (var i = 0; i < arrayPowerSize; ++i)
+			{
+				arrayPowerValue.add(["0"]);
+				arrayPowerZone.add(["0"]);
+				//System.println("During Array Allocation - Total Memory = " + System.getSystemStats().totalMemory + " / Used Memory = " + System.getSystemStats().usedMemory);
+			}
 		}
 
 
@@ -290,12 +406,12 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
     //! the draw context is changed this will be called.
     function onLayout(dc)
     {
-    	System.println("DC Height  = " + dc.getHeight());
-      	System.println("DC Width  = " + dc.getWidth());
+    	//System.println("DC Height  = " + dc.getHeight());
+      	//System.println("DC Width  = " + dc.getWidth());
 
     	View.setLayout(Rez.Layouts.MainLayout(dc));
 
-
+/*
        //if (Device_Type.equals("edge_520") or Device_Type.equals("edge_1000"))
        if (Device_Type.equals("edge_520") or Device_Type.equals("edge_820"))
        {
@@ -303,7 +419,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 			CustomFont_Value_Medium_2 = Ui.loadResource(Rez.Fonts.Font_Value_Medium_2);
 			CustomFont_Value_Large_1 = Ui.loadResource(Rez.Fonts.Font_Value_Large_1);
        }
-
+*/
         return true;
     }
 
@@ -330,7 +446,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 			avePowerValue = avePowerValue + info.currentPower;
 			avePowerCount = avePowerCount + 1;
 			
-			if(avePowerCount > Graph_Timer)
+			// Test to manage Edge 520 memory limitation
+			if(Display_Graph and avePowerCount > Graph_Timer)
 			{
 				arrayPowerValue[curPos] = (avePowerValue / avePowerCount).toNumber();
 				arrayPowerZone[curPos] = GetPowerZone(arrayPowerValue[curPos]);
@@ -499,7 +616,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 		if (s != null)
 		{
 			dc.setColor(color, Gfx.COLOR_TRANSPARENT);
-			dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER);
+			//dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_RIGHT|Graphics.TEXT_JUSTIFY_VCENTER);
+			dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_RIGHT);
 		}
 	}
 
@@ -508,7 +626,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 		if (s != null)
 		{
 			dc.setColor(color, Gfx.COLOR_TRANSPARENT);
-			dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+			//dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+			dc.drawText(x, y, font, s, Graphics.TEXT_JUSTIFY_LEFT);
 		}
 	}
 
