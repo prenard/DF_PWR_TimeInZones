@@ -332,24 +332,24 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Power_Value_y = 20;
 				Power_Value_font = Gfx.FONT_NUMBER_THAI_HOT;
 
-				Power_Zone_x = 130;
+				Power_Zone_x = 115;
 				Power_Zone_y = 1;
 				Power_Zone_font = Gfx.FONT_MEDIUM;
 
-				Power_Unit_x = 130;
-				Power_Unit_y = 75;
+				Power_Unit_x = 95;
+				Power_Unit_y = 1;
 				Power_Unit_font = Gfx.FONT_XTINY;
 
 				Z_Label_x = 130;
-				Z_Label_y = 40;
-				Z_Label_font = Gfx.FONT_NUMBER_MEDIUM;
+				Z_Label_y = 35;
+				Z_Label_font = Gfx.FONT_MEDIUM;
 
 				Z_Value_x = 280;
 				Z_Value_y = 1;
 				Z_Value_font = Gfx.FONT_NUMBER_MEDIUM;
 
 				Z_Range_x = 280;
-				Z_Range_y = 55;
+				Z_Range_y = 50;
 				Z_Range_font = Gfx.FONT_LARGE;
 
 				break;
@@ -432,8 +432,10 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 		if (info.currentPower != null)
 		{
 			Power_Current = info.currentPower;
+			Power_Current = 800;
 			Power_Zone = GetPowerZone(Power_Current);
 			Power_Current_Zone = Power_Zone + 1;
+			System.println("Power_Zone = " + Power_Zone);
 		}
 
 		if (info.currentPower != null && info.elapsedTime != null && info.elapsedTime > 0)
@@ -634,8 +636,9 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 
     function GetPowerZone(pwr)
     {
+		System.println("Zones_Number  = " + Zones_Number);
 		var Power_Zone = 0;
-		for (var i = 0; i < Zones_Number ; ++i)
+		for (var i = 0; i <= Zones_Number ; ++i)
     	{
     		if ((Zone_L[i] <= pwr) and (pwr <= Zone_H[i]))
     	   	{
