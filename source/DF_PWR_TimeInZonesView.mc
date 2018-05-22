@@ -261,7 +261,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Power_Value_y = 10;
 				Power_Value_font = Gfx.FONT_NUMBER_HOT;
 
-				Power_Zone_x = 85;
+				Power_Zone_x = 82;
 				Power_Zone_y = 0;
 				Power_Zone_font = Gfx.FONT_SMALL;
 
@@ -332,9 +332,9 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Power_Value_y = 20;
 				Power_Value_font = Gfx.FONT_NUMBER_THAI_HOT;
 
-				Power_Zone_x = 115;
-				Power_Zone_y = 1;
-				Power_Zone_font = Gfx.FONT_MEDIUM;
+				Power_Zone_x = 140;
+				Power_Zone_y = 40;
+				Power_Zone_font = Gfx.FONT_LARGE;
 
 				Power_Unit_x = 95;
 				Power_Unit_y = 1;
@@ -343,9 +343,9 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				//Z_Label_x = 130;
 				//Z_Label_y = 35;
 				//Z_Label_font = Gfx.FONT_MEDIUM;
-				Z_Label_x = 135;
+				Z_Label_x = 170;
 				Z_Label_y = 40;
-				Z_Label_font = Gfx.FONT_LARGE;
+				Z_Label_font = Gfx.FONT_NUMBER_MEDIUM;
 
 
 				Z_Value_x = 280;
