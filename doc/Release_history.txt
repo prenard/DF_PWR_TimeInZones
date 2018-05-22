@@ -6,6 +6,8 @@ You can customize this Data Field to use specific hard coded Power Training Zone
 
 Release History:
 
+- V1.15 - 2018-05-22
+* Update Edge 1030 Display
 - V1.14 - 2018-05-17
 * Update Edge 1030 Display
 - V1.13 - 2018-05-17
