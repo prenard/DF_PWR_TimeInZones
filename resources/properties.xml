@@ -1,6 +1,5 @@
 <resources>
 	<properties>
-    	<property id="DF_Title" type="string">PWR Time in Zones</property>
 	    <property id="Avg_Duration" type="number">3</property>
 	    <property id="Z1_H" type="number">157</property>
 	    <property id="Z2_H" type="number">213</property>
@@ -14,7 +13,6 @@
 	</properties>
 
 	<strings>
-    	<string id="DF_Title_Title">Data Field Title</string>
 	    <string id="Avg_Duration_Title">Avg Duration</string>
 	    <string id="Z1_H_Title">PWR Zone 1 - High</string>
 	    <string id="Z2_H_Title">PWR Zone 2 - High</string>
@@ -28,9 +26,6 @@
 	</strings>
 	
 	<settings>
-	    <setting propertyKey="@Properties.DF_Title" title="@Strings.DF_Title_Title">
-	        <settingConfig type="alphaNumeric" readonly="true" />
-	    </setting>
 		<setting propertyKey="@Properties.Avg_Duration" title="@Strings.Avg_Duration_Title">
 	        <settingConfig type="numeric" min="1" max="3600" />
 	    </setting>

@@ -5,8 +5,6 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 {
 	var Device_Type;
 	
-	var App_Title;
-	
 	var Max_Zones_Number = 7;
 	var Max_Power = 1999;
 	
@@ -115,10 +113,9 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 		Z_H[4] 			= Args[4];
 		Z_H[5] 			= Args[5];
 		Display_Timer	= Args[6];
-        App_Title		= Args[7];
-		Avg_Duration	= Args[8];
-		Graph_Timer 	= Args[9];
-		Display_Graph	= Args[10];
+		Avg_Duration	= Args[7];
+		Graph_Timer 	= Args[8];
+		Display_Graph	= Args[9];
 
 		// Memory limitation on Edge 520 = no graph support
 		if (Device_Type.equals("edge_520"))
@@ -136,9 +133,10 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				System.println("Zone " + j + " : " + Zone_L[j] + " - " + Zone_H[j]);
 			}
 
-			if ((Z_H[i] == 0) and (!Last_Zone))
+/*			if ((Z_H[i] == 0) and (!Last_Zone))*/
+			if ((Z_H[i] == 0))
 			{
-				Zone_H[Zones_Number] = Max_HR;
+				Zone_H[Zones_Number] = Max_Power;
 			}
 			else
 			{
@@ -332,7 +330,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Power_Value_y = 20;
 				Power_Value_font = Gfx.FONT_NUMBER_THAI_HOT;
 
-				Power_Zone_x = 140;
+				Power_Zone_x = 135;
 				Power_Zone_y = 40;
 				Power_Zone_font = Gfx.FONT_LARGE;
 
@@ -343,7 +341,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				//Z_Label_x = 130;
 				//Z_Label_y = 35;
 				//Z_Label_font = Gfx.FONT_MEDIUM;
-				Z_Label_x = 170;
+				Z_Label_x = 160;
 				Z_Label_y = 40;
 				Z_Label_font = Gfx.FONT_NUMBER_MEDIUM;
 
@@ -437,17 +435,16 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 		if (info.currentPower != null)
 		{
 			Power_Current = info.currentPower;
-			Power_Current = 800;
 			Power_Zone = GetPowerZone(Power_Current);
 			Power_Current_Zone = Power_Zone + 1;
-			System.println("Power_Zone = " + Power_Zone);
+			//System.println("Power_Zone = " + Power_Zone);
 		}
 
 		if (info.currentPower != null && info.elapsedTime != null && info.elapsedTime > 0)
 		{
 
 			// Compute time in Zones
-			System.println("Power_Zone = " + Power_Zone);
+			//System.println("Power_Zone = " + Power_Zone);
 			Zone_Time[Power_Zone]++;
 
 			avePowerValue = avePowerValue + info.currentPower;
@@ -641,7 +638,7 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 
     function GetPowerZone(pwr)
     {
-		System.println("Zones_Number  = " + Zones_Number);
+		//System.println("Zones_Number  = " + Zones_Number);
 		var Power_Zone = 0;
 		for (var i = 0; i <= Zones_Number ; ++i)
     	{

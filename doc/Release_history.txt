@@ -6,6 +6,13 @@ You can customize this Data Field to use specific hard coded Power Training Zone
 
 Release History:
 
+- V1.20 - 2019-05-13
+* Change 1030 display
+- V1.18 - 2018-06-14
+* Fix settings bug: change getProperty by getValue
+- V1.17 - 2018-05-24
+* Fix Zone Time bug
+* Clean code
 - V1.16 - 2018-05-22
 * Update Display
 - V1.15 - 2018-05-22
