@@ -6,6 +6,10 @@ You can customize this Data Field to use specific hard coded Power Training Zone
 
 Release History:
 
+- V1.21 - 2019-06-10
+* Add Edge 530 support
+* Add Edge 830 support
+* Add Edge 1030 Bontrager support
 - V1.20 - 2019-05-13
 * Change 1030 display
 - V1.18 - 2018-06-14

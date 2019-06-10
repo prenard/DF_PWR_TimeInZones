@@ -2,8 +2,11 @@
     <iq:application entry="DF_PWR_TimeInZonesApp" id="C1EB2C642BF84C2BBF5677E59CF96002" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="2.1.1" name="@Strings.AppName" type="datafield">
         <iq:products>
             <iq:product id="edge1030"/>
+            <iq:product id="edge1030bontrager"/>
             <iq:product id="edge520plus"/>
+            <iq:product id="edge530"/>
             <iq:product id="edge820"/>
+            <iq:product id="edge830"/>
             <iq:product id="edge_1000"/>
             <iq:product id="edge_520"/>
         </iq:products>
