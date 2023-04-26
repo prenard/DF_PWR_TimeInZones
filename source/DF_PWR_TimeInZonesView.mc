@@ -180,7 +180,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 
 		// Device Management
 
-		if (app.Device_Type.equals("edge_520") or app.Device_Type.equals("edge_520_plus") or app.Device_Type.equals("edge_820"))
+		if (app.deviceFamily.equals("rectangle-200x265"))
+		//if (app.Device_Type.equals("edge_520") or app.Device_Type.equals("edge_520_plus") or app.Device_Type.equals("edge_820"))
 		{
 				Graph_Right_x = 195;
 				Graph_Bottom_y = 49;
@@ -214,7 +215,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Z_Range_font = Gfx.FONT_MEDIUM;
 		}
 		else
-		if (app.Device_Type.equals("edge_530") or app.Device_Type.equals("edge_830"))
+		if (app.deviceFamily.equals("rectangle-246x322"))
+		//if (app.Device_Type.equals("edge_530") or app.Device_Type.equals("edge_830"))
 		{
 				Graph_Right_x = 195;
 				Graph_Bottom_y = 49;
@@ -248,7 +250,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Z_Range_font = Gfx.FONT_MEDIUM;
 		}
 		else
-		if (app.Device_Type.equals("edge_1000")) 
+		if (app.deviceFamily.equals("rectangle-240x400"))
+		//if (app.Device_Type.equals("edge_1000"))
 		{
 				Graph_Right_x = 230;
 				Graph_Bottom_y = 75;
@@ -282,7 +285,8 @@ class DF_PWR_TimeInZonesView extends Ui.DataField
 				Z_Range_font = Gfx.FONT_LARGE;
 		}
 		else
-		if (app.Device_Type.equals("edge_1030") or app.Device_Type.equals("edge_1030_bontrager")) 
+		if (app.deviceFamily.equals("rectangle-282x470"))
+		//if (app.Device_Type.equals("edge_1030") or app.Device_Type.equals("edge_1030_bontrager")) 
 		{
 				Graph_Right_x = 270;
 				Graph_Bottom_y = 90;

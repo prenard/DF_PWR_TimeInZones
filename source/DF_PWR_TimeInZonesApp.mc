@@ -17,19 +17,24 @@
 using Toybox.Application as App;
 using Toybox.WatchUi as Ui;
 
+var AppVersion="1.21-01";
+
 class DF_PWR_TimeInZonesApp extends App.AppBase {
 
+	var deviceFamily;
 	var Device_Type;
 
     function initialize()
     {
         AppBase.initialize();
         
-        var DeviceSettings = System.getDeviceSettings();
-
         Device_Type = Ui.loadResource(Rez.Strings.Device);
-
         System.println("Device Type = " + Device_Type);
+
+        deviceFamily = Toybox.WatchUi.loadResource(Rez.Strings.deviceFamily);
+        System.println("deviceFamily = " + deviceFamily);
+
+        var DeviceSettings = System.getDeviceSettings();
         System.println("Device - Screen Height = " + DeviceSettings.screenHeight);
         System.println("Device - Screen Width = " + DeviceSettings.screenWidth);
         System.println("Device - Is Touchscreen = " + DeviceSettings.isTouchScreen);
@@ -50,6 +55,9 @@ class DF_PWR_TimeInZonesApp extends App.AppBase {
     // Return the initial view of your application here
     function getInitialView()
     {
+		System.println("AppVersion = " + AppVersion);
+		setProperty("App_Version", AppVersion);
+
 		var Args = new [10];
 
 		Args[0]  = readPropertyKeyInt("Z1_H",160);

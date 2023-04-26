@@ -6,6 +6,12 @@ You can customize this Data Field to use specific hard coded Power Training Zone
 
 Release History:
 
+- V1.21-01 - 2023-04-26
+* Add Edge 540 & 840 support
+* Add Edge 1040 support
+* Add Edge 1030 Plus support
+* Implement CIQ SDK 4.24
+* Add Application Version support
 - V1.21 - 2019-06-10
 * Add Edge 530 support
 * Add Edge 830 support
